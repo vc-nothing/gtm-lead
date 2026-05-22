@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nothing — Product GTM Lead</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NOTHING — EXECUTIVE PROSPECTUS  (per-role edition)
+   ------------------------------------------------------------
+   ARCHITECTURE:
+   - COMPANY block  = shared across ALL role files. Edit once,
+     paste the same block into every file (or re-run generator).
+   - ROLE block     = unique to THIS file / this candidate.
+   This file is ONE role. There is no role-switcher by design:
+   the candidate should feel it was built for them, and should
+   not perceive a menu of roles to choose between.
+
+   `_internal` fields are NEVER rendered — seed of the future
+   gap-map / recruiting-feedback layer.
+
+   THEME: Nothing-OS inspired. Light default + dark toggle,
+   persisted via localStorage. Accent type = Space Mono
+   (uppercase, wide-tracked). Swap --dotmx to Ntype/NDot later.
+   ============================================================ */
+
+:root,
+[data-theme="light"]{
+  --bg:#f6f6f4; --bg-elevated:#ffffff; --bg-sunk:#eeeeec;
+  --ink:#0a0a0a; --ink-dim:#6b6b6b; --ink-faint:#a8a8a4;
+  --line:#e2e2de; --line-bright:#d2d2cc;
+  --red:#d6232a; --red-soft:rgba(214,35,42,0.08); --red-line:rgba(214,35,42,0.28);
+  --dot:rgba(0,0,0,0.05);
+}
+[data-theme="dark"]{
+  --bg:#0b0b0c; --bg-elevated:#141416; --bg-sunk:#000000;
+  --ink:#f4f4f2; --ink-dim:#9a9a98; --ink-faint:#4a4a4a;
+  --line:#222224; --line-bright:#2e2e30;
+  --red:#ff3b41; --red-soft:rgba(255,59,65,0.10); --red-line:rgba(255,59,65,0.32);
+  --dot:rgba(255,255,255,0.04);
+}
+:root{
+  --mono:'Space Mono',monospace;
+  --dotmx:'Space Mono',monospace;
+  --sans:'Space Grotesk',sans-serif;
+  --maxw:1080px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .4s ease,color .4s ease}
+body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(circle,var(--dot) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0;transition:background-image .4s ease}
+.wrap{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+.mono-label{font-family:var(--dotmx);font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-dim)}
+.mono-label .dot{color:var(--red)}
+
+.statusbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.statusbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{display:flex;align-items:center;gap:13px;font-family:var(--dotmx);font-weight:700;font-size:13px;letter-spacing:0.18em;text-transform:uppercase}
+.brand .glyph{width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red);animation:pulse 3.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.bar-right{display:flex;align-items:center;gap:26px}
+.nav{display:flex;gap:24px}
+.nav a{color:var(--ink-dim);text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;transition:color .2s}
+.nav a:hover{color:var(--ink)}
+@media(max-width:760px){.nav{display:none}}
+.theme-toggle{display:inline-flex;align-items:center;border:1px solid var(--line-bright);border-radius:999px;padding:3px;background:var(--bg-sunk);cursor:pointer}
+.theme-toggle button{border:none;background:transparent;cursor:pointer;font-family:var(--dotmx);font-size:10px;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);padding:6px 13px;border-radius:999px;transition:all .25s;line-height:1}
+.theme-toggle button.on{background:var(--ink);color:var(--bg)}
+
+.hero{padding:108px 0 78px;border-bottom:1px solid var(--line);position:relative}
+.hero .kicker{margin-bottom:32px;display:flex;align-items:center;gap:14px}
+.hero .kicker .rule{height:1px;width:44px;background:var(--red)}
+.hero h1{font-family:var(--sans);font-weight:700;font-size:clamp(44px,7.8vw,92px);line-height:0.98;letter-spacing:-0.03em}
+.hero h1 em{font-style:normal;color:var(--red);display:block}
+.hero h1 span{display:block}
+.hero .lede{margin-top:34px;max-width:620px;font-size:19px;line-height:1.6;color:var(--ink-dim)}
+.hero .lede strong{color:var(--ink);font-weight:600}
+.hero .meta-row{margin-top:52px;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line)}
+.hero .meta{flex:1;min-width:150px;padding:22px 24px 22px 0;border-right:1px solid var(--line)}
+.hero .meta:last-child{border-right:none}
+.hero .meta .v{font-family:var(--sans);font-weight:700;font-size:32px;letter-spacing:-0.02em}
+.hero .meta .v .red{color:var(--red)}
+.hero .meta .k{margin-top:9px;font-family:var(--dotmx);font-size:10px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
+@media(max-width:760px){.hero .meta{min-width:50%;border-right:none}}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+section{padding:90px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:46px}
+.sec-head .num{font-family:var(--dotmx);font-size:13px;font-weight:700;color:var(--red);letter-spacing:0.12em}
+.sec-head h2{font-family:var(--sans);font-weight:700;font-size:clamp(26px,4vw,40px);letter-spacing:-0.02em}
+
+.now-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media(max-width:760px){.now-grid{grid-template-columns:1fr}}
+.now-card{background:var(--bg-elevated);padding:30px 28px;position:relative;transition:transform .3s,background .3s}
+.now-card:hover{background:var(--bg)}
+.now-card .tag{font-family:var(--dotmx);font-size:10px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:block}
+.now-card .headline{font-family:var(--sans);font-weight:600;font-size:21px;line-height:1.18;letter-spacing:-0.02em;margin-bottom:12px}
+.now-card .body{font-size:14.5px;color:var(--ink-dim);line-height:1.58}
+.now-card .src{margin-top:16px;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-faint);text-transform:uppercase}
+
+.thesis blockquote{font-family:var(--sans);font-weight:500;font-size:clamp(25px,4.2vw,44px);line-height:1.16;letter-spacing:-0.025em;max-width:920px}
+.thesis blockquote .red{color:var(--red)}
+.thesis blockquote .dim{color:var(--ink-faint)}
+.thesis .attr{margin-top:28px;font-family:var(--dotmx);font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-dim)}
+
+/* single role — no tabs */
+.role-body{border:1px solid var(--line);border-radius:14px;background:var(--bg-elevated);overflow:hidden}
+.role-panel{padding:46px 40px}
+@media(max-width:760px){.role-panel{padding:30px 22px}}
+.rp-mission{font-family:var(--sans);font-weight:500;font-size:clamp(21px,3vw,29px);line-height:1.22;letter-spacing:-0.02em;max-width:760px;margin-bottom:38px}
+.rp-mission .red{color:var(--red)}
+.rp-blocks{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.rp-block{background:var(--bg-elevated);padding:26px 24px}
+.rp-block h4{font-family:var(--dotmx);font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.rp-block h4::before{content:"";width:6px;height:6px;background:var(--red);border-radius:50%}
+.rp-block p{font-size:15px;color:var(--ink);line-height:1.62}
+.rp-block ul{list-style:none;margin-top:2px}
+.rp-block li{font-size:15px;color:var(--ink);line-height:1.5;padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--line)}
+.rp-block li:last-child{border-bottom:none}
+.rp-block li::before{content:"→";position:absolute;left:0;color:var(--red)}
+.gap-block{background:var(--red-soft);border:1px solid var(--red-line);border-radius:12px;padding:28px 26px;margin-bottom:14px}
+.gap-block h4{color:var(--red);font-family:var(--dotmx);font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:13px;display:flex;align-items:center;gap:9px}
+.gap-block h4::before{content:"";width:6px;height:6px;background:var(--red);border-radius:50%}
+.gap-block p{font-size:16px;line-height:1.6;color:var(--ink)}
+.rp-foot{display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;padding-top:26px;border-top:1px solid var(--line)}
+.rp-foot .f{flex:1;min-width:130px}
+.rp-foot .f .k{font-family:var(--dotmx);font-size:10px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+.rp-foot .f .v{font-size:15px;color:var(--ink);font-weight:500}
+
+.mandate{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media(max-width:760px){.mandate{grid-template-columns:1fr}}
+.mandate .m{background:var(--bg-elevated);padding:34px 28px}
+.mandate .m .mi{font-family:var(--dotmx);font-size:10px;font-weight:700;color:var(--red);letter-spacing:0.16em;margin-bottom:18px}
+.mandate .m h3{font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:-0.02em;margin-bottom:13px;line-height:1.18}
+.mandate .m p{font-size:14.5px;color:var(--ink-dim);line-height:1.6}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+.fact{background:var(--bg-elevated);padding:28px 22px}
+.fact .v{font-family:var(--sans);font-weight:700;font-size:clamp(24px,3.4vw,34px);letter-spacing:-0.03em}
+.fact .v .red{color:var(--red)}
+.fact .k{margin-top:10px;font-family:var(--dotmx);font-size:10px;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-dim);line-height:1.5}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px}
+@media(max-width:760px){.duo{grid-template-columns:1fr;gap:30px}}
+.list-clean{list-style:none}
+.list-clean li{padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.list-clean li .nm{font-weight:600;font-size:15px}
+.list-clean li .rl{font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:0.03em;text-align:right}
+.loc-tag{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:0.05em;padding:10px 0;border-bottom:1px solid var(--line);width:100%}
+.loc-tag .city{color:var(--ink)}
+.loc-tag .note{color:var(--red);font-family:var(--dotmx);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;margin-left:auto}
+.loc-tag .note.hq{color:var(--ink-dim)}
+
+.cta{padding:104px 0 120px;text-align:center;border-bottom:none}
+.cta .mono-label{margin-bottom:24px}
+.cta h2{font-family:var(--sans);font-weight:700;font-size:clamp(34px,6vw,66px);line-height:1.0;letter-spacing:-0.03em}
+.cta h2 .red{color:var(--red)}
+.cta p{margin:28px auto 0;max-width:540px;color:var(--ink-dim);font-size:16px;line-height:1.62}
+.foot-rule{margin-top:84px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)}
+@media(max-width:760px){.foot-rule{flex-direction:column;gap:8px;text-align:left}}
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="wrap">
+    <div class="brand"><span class="glyph"></span> Nothing<span style="color:var(--ink-faint)">/</span>Prospectus</div>
+    <div class="bar-right">
+      <nav class="nav">
+        <a href="#now">Why Now</a>
+        <a href="#thesis">The Bet</a>
+        <a href="#role">The Role</a>
+        <a href="#mandate">The Mandate</a>
+        <a href="#company">Company</a>
+      </nav>
+      <div class="theme-toggle" id="theme-toggle" role="group" aria-label="Theme">
+        <button data-theme-set="light" class="on">Light</button>
+        <button data-theme-set="dark">Dark</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="rule"></span><span class="mono-label" id="hero-kicker"></span></div>
+    <h1 class="reveal" id="hero-title"></h1>
+    <p class="lede reveal" id="hero-lede"></p>
+    <div class="meta-row reveal" id="hero-meta"></div>
+  </div>
+</header>
+
+<section id="now">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">01</span><h2>Why Now</h2></div>
+    <div class="now-grid reveal" id="now-grid"></div>
+  </div>
+</section>
+
+<section id="thesis">
+  <div class="wrap thesis">
+    <div class="sec-head reveal"><span class="num">02</span><h2>The Bet We're Making</h2></div>
+    <blockquote class="reveal" id="thesis-quote"></blockquote>
+    <div class="attr reveal" id="thesis-attr"></div>
+  </div>
+</section>
+
+<section id="role">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">03</span><h2 id="role-sec-title">Where You Come In</h2></div>
+    <div class="role-body reveal" id="role-body"></div>
+  </div>
+</section>
+
+<section id="mandate">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">04</span><h2>The Mandate</h2></div>
+    <div class="mandate reveal" id="mandate-grid"></div>
+  </div>
+</section>
+
+<section id="company">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">05</span><h2>The Company</h2></div>
+    <div class="facts reveal" id="facts-grid" style="margin-bottom:56px"></div>
+    <div class="duo reveal">
+      <div>
+        <div class="mono-label" style="margin-bottom:20px">Founding Team<span class="dot">.</span></div>
+        <ul class="list-clean" id="team-list"></ul>
+      </div>
+      <div>
+        <div class="mono-label" style="margin-bottom:20px">Footprint<span class="dot">.</span></div>
+        <div id="loc-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="mono-label reveal">End of Prospectus<span class="dot">.</span></div>
+    <h2 class="reveal" id="cta-head"></h2>
+    <p class="reveal" id="cta-sub"></p>
+    <div class="foot-rule">
+      <span id="foot-left"></span>
+      <span>Nothing Technology Ltd<span style="color:var(--red)">.</span></span>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   COMPANY  —  SHARED ACROSS ALL ROLE FILES (edit once)
+   ============================================================ */
+const COMPANY = {
+  now: [
+  {
+    "tag": "US Market Entry",
+    "headline": "A San Francisco home, next door to Jony Ive.",
+    "body": "Nothing has signed a lease at 555 Pacific Ave in Jackson Square — part showroom, part office — placing it inside the orbit of LoveFrom and OpenAI. US market entry is the company's primary focus this year.",
+    "src": "SF Chronicle · Apr 2026"
+  },
+  {
+    "tag": "The Software Turn",
+    "headline": "Essential Apps is now in public beta.",
+    "body": "Describe an app in plain language; AI builds it onto your home screen. The Playground community platform lets people share and remix them — the first shipped step toward what Nothing calls an AI-native OS.",
+    "src": "GSMArena · Feb 2026"
+  },
+  {
+    "tag": "The Strategic Read",
+    "headline": "“The specs race is over.”",
+    "body": "Carl Pei's framing signals the shift away from hardware-spec competition toward software, AI, and experience as the ground Nothing intends to win on.",
+    "src": "Carl Pei · 2026"
+  },
+  {
+    "tag": "Conviction",
+    "headline": "$200M Series C, aimed squarely at AI.",
+    "body": "Backed by GV, EQT, Qualcomm Ventures and Tiger Global, the round explicitly funds the move to an AI-native platform integrating hardware and software — and a path the company frames as IPO-readiness within three years.",
+    "src": "Series C · 2025"
+  }
+],
+  thesis: {
+  "quote": "We are betting that the next computing platform won't come from an incumbent — that a <span class='red'>design-led, AI-native challenger</span> can build an OS that molds itself to the person, <span class='dim'>not the other way around.</span> The hardware earned us the right to try. The software is how we win.",
+  "attr": "The Nothing Thesis · 2026"
+},
+  facts: [
+  {
+    "v": "2020",
+    "k": "Founded"
+  },
+  {
+    "v": "$1.3B",
+    "k": "Valuation"
+  },
+  {
+    "v": "$450M",
+    "k": "Total raised · 7 rounds"
+  },
+  {
+    "v": "6",
+    "k": "Countries"
+  }
+],
+  team: [
+  {
+    "nm": "Carl Pei",
+    "rl": "Co-Founder & CEO"
+  },
+  {
+    "nm": "Paul Yu",
+    "rl": "Co-Founder & CPO"
+  },
+  {
+    "nm": "Akis Evangelidis",
+    "rl": "Co-Founder & President, India"
+  },
+  {
+    "nm": "Steven Gao",
+    "rl": "Co-Founder & VP Strategy & Growth"
+  },
+  {
+    "nm": "Levi Li",
+    "rl": "Co-Founder & Head of India"
+  },
+  {
+    "nm": "Shawn Liu",
+    "rl": "Co-Founder & VP Smartphone & Wearables"
+  }
+],
+  locations: [
+  {
+    "city": "London, UK",
+    "note": "HQ",
+    "hq": true
+  },
+  {
+    "city": "San Francisco, US",
+    "note": "New"
+  },
+  {
+    "city": "Shenzhen, China",
+    "note": ""
+  },
+  {
+    "city": "Xi'an, China",
+    "note": ""
+  },
+  {
+    "city": "Gurgaon, India",
+    "note": ""
+  },
+  {
+    "city": "Tokyo, Japan",
+    "note": ""
+  },
+  {
+    "city": "Dubai, UAE",
+    "note": ""
+  }
+],
+  cta: {
+  "head": "Make technology<br><span class='red'>fun again.</span>",
+  "sub": "This prospectus is a starting point, not a job description. The scope is fluid by design — the mission is fixed. If the mission is yours, the rest is a conversation."
+},
+  footLeft: "Confidential · Prepared for the Product GTM Lead search"
+};
+
+/* ============================================================
+   ROLE  —  UNIQUE TO THIS FILE / THIS CANDIDATE
+   ============================================================ */
+const ROLE = {
+  "hero": {
+    "kicker": "Executive Prospectus<span class='dot'>.</span> Product GTM Lead",
+    "titleLines": [
+      "Turn features people love",
+      "into revenue",
+      "that compounds."
+    ],
+    "redLineIndex": 1,
+    "lede": "Nothing has built a <strong>world-class hardware brand</strong> — and is now building high-margin software and services on top of it. The product teams are exceptional at shipping things people love. What's missing is the commercial brain that decides how those things make money. That is the role.",
+    "meta": [
+      {
+        "v": "$1B+",
+        "k": "Lifetime sales · 4 yrs"
+      },
+      {
+        "v": "$200M",
+        "k": "Series C · AI-native"
+      },
+      {
+        "v": "7M",
+        "k": "Units shipped to date"
+      },
+      {
+        "v": "1,000+",
+        "k": "People · 6 countries"
+      }
+    ]
+  },
+  "secTitle": "Where You Come In",
+  "mission": "Be the <span class='red'>commercial brain</span> for Nothing's new software ventures — own pricing, packaging and commercial strategy from the ground up, and design the architecture that turns features people love into recurring revenue.",
+  "gap": "Nothing's engineering and product teams build functional, beautiful software. But there is no one who owns the commercial side of it — who decides what's free versus paid, who the buyer actually is, and how a feature becomes ARR. The company is building the product; it doesn't yet have the person who figures out how to sell it. You are that person.",
+  "owns": [
+    "Pricing &amp; packaging — architect the tiers (Free, Pro, Teams) for pure SaaS and for software accompanying hardware; decide what drives growth versus what drives ARR",
+    "The buyer — identify and segment the Prosumer and SMB audiences, and what drives their willingness to pay",
+    "Product value — work upstream with PMs so the company prioritises the features that actually drive subscription revenue and daily engagement, not a feature factory",
+    "Revenue operations — the early commercial infrastructure, from billing logic (e.g. Stripe) to how CAC and LTV get measured"
+  ],
+  "success": "A year in: Nothing's software has a coherent commercial model, a defined buyer, and ARR that's growing — with pricing, packaging and the revenue infrastructure all designed by you, and product decisions upstream shaped by what actually converts.",
+  "reports": "Yogi · Chief of Staff to CEO",
+  "scope": "Pricing · packaging · commercial strategy · RevOps",
+  "loc": "London (preferred) or San Francisco",
+  "mandate": [
+    {
+      "i": "M-01",
+      "h": "Build the commercial model",
+      "p": "Pricing, packaging and the revenue architecture don't exist yet for these ventures — you build them from the ground up. This is foundational commercial work, not optimisation of someone else's system."
+    },
+    {
+      "i": "M-02",
+      "h": "Strategy and the paywall",
+      "p": "You present pricing strategy to the CEO on Monday and adjust a paywall trigger in the billing software on Tuesday. Senior thinking and tactical execution in the same person — both are the job."
+    },
+    {
+      "i": "M-03",
+      "h": "Where love meets willingness to pay",
+      "p": "The product is already loved. Your edge is finding the precise intersection between what users love and what buyers will pay for — and turning that into a model that compounds."
+    }
+  ]
+};
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+(function(){
+  // HERO (role-specific)
+  document.getElementById('hero-kicker').innerHTML = ROLE.hero.kicker;
+  const ht=document.getElementById('hero-title');
+  ROLE.hero.titleLines.forEach((l,i)=>{
+    const el=document.createElement('span');
+    if(i===ROLE.hero.redLineIndex){el.style.color='var(--red)';}
+    el.textContent=l; ht.appendChild(el);
+  });
+  document.getElementById('hero-lede').innerHTML=ROLE.hero.lede;
+  document.getElementById('hero-meta').innerHTML=COMPANY_meta();
+  function COMPANY_meta(){
+    return ROLE.hero.meta.map(m=>
+      `<div class="meta"><div class="v">${redify(m.v)}</div><div class="k">${m.k}</div></div>`
+    ).join('');
+  }
+
+  // NOW (shared)
+  document.getElementById('now-grid').innerHTML=COMPANY.now.map(n=>
+    `<div class="now-card"><span class="tag">${n.tag}</span><div class="headline">${n.headline}</div><div class="body">${n.body}</div><div class="src">${n.src}</div></div>`
+  ).join('');
+
+  // THESIS (shared)
+  document.getElementById('thesis-quote').innerHTML=COMPANY.thesis.quote;
+  document.getElementById('thesis-attr').textContent=COMPANY.thesis.attr;
+
+  // ROLE (single, no tabs)
+  document.getElementById('role-sec-title').textContent=ROLE.secTitle||'Where You Come In';
+  document.getElementById('role-body').innerHTML=
+    `<div class="role-panel">
+       <div class="rp-mission">${ROLE.mission}</div>
+       <div class="gap-block"><h4>The Gap This Fills</h4><p>${ROLE.gap}</p></div>
+       <div class="rp-blocks">
+         <div class="rp-block"><h4>What You Own</h4><ul>${ROLE.owns.map(o=>`<li>${o}</li>`).join('')}</ul></div>
+         <div class="rp-block"><h4>What Great Looks Like</h4><p>${ROLE.success}</p></div>
+       </div>
+       <div class="rp-foot">
+         <div class="f"><div class="k">Reports To</div><div class="v">${ROLE.reports}</div></div>
+         <div class="f"><div class="k">Scope</div><div class="v">${ROLE.scope}</div></div>
+         <div class="f"><div class="k">Location</div><div class="v">${ROLE.loc}</div></div>
+       </div>
+     </div>`;
+
+  // MANDATE (role-tailored)
+  document.getElementById('mandate-grid').innerHTML=ROLE.mandate.map(m=>
+    `<div class="m"><div class="mi">${m.i}</div><h3>${m.h}</h3><p>${m.p}</p></div>`
+  ).join('');
+
+  // FACTS / TEAM / LOCATIONS (shared)
+  document.getElementById('facts-grid').innerHTML=COMPANY.facts.map(f=>
+    `<div class="fact"><div class="v">${redify(f.v)}</div><div class="k">${f.k}</div></div>`
+  ).join('');
+  document.getElementById('team-list').innerHTML=COMPANY.team.map(t=>
+    `<li><span class="nm">${t.nm}</span><span class="rl">${t.rl}</span></li>`
+  ).join('');
+  document.getElementById('loc-list').innerHTML=COMPANY.locations.map(l=>
+    `<div class="loc-tag"><span class="city">${l.city}</span>${l.note?`<span class="note${l.hq?' hq':''}">${l.note}</span>`:''}</div>`
+  ).join('');
+
+  // CTA (shared)
+  document.getElementById('cta-head').innerHTML=COMPANY.cta.head;
+  document.getElementById('cta-sub').textContent=COMPANY.cta.sub;
+  document.getElementById('foot-left').textContent=COMPANY.footLeft;
+
+  // highlight key figures in red
+  function redify(v){
+    return v.replace(/(\$1B\+|\$200M|\$1\.3B|\$450M|7M|1,000\+)/,'<span class="red">$1</span>');
+  }
+
+  // REVEAL
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*0.05)+'s';io.observe(el);});
+
+  // THEME TOGGLE + persistence
+  const tt=document.getElementById('theme-toggle');
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme',mode);
+    tt.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.themeSet===mode));
+    try{localStorage.setItem('nothing-prospectus-theme',mode);}catch(e){}
+  }
+  let saved='light';
+  try{saved=localStorage.getItem('nothing-prospectus-theme')||'light';}catch(e){}
+  setTheme(saved);
+  tt.addEventListener('click',e=>{const b=e.target.closest('button[data-theme-set]');if(b)setTheme(b.dataset.themeSet);});
+})();
+</script>
+</body>
+</html>
